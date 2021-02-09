@@ -3,7 +3,7 @@
 # Validate arguments
 if [ -z $1 ]; then
     echo "Usage:"
-    echo "    $0 <package_name> [path_to_custom_package_list]"
+    echo "    $0 <package_name_or_names> [path_to_custom_package_list]"
     exit 1
 else
     PACKAGENAME=$1
@@ -71,5 +71,9 @@ cd ..
 mkdir pkgroot
 
 for debfile in `ls dependencies`; do
-    dpkg-deb -x dependencies/$debfile pkgroot
+    dpkg-deb -x dependencies/$debfile pkgroot || exit 2
 done
+
+cd ..
+
+echo Built package. Root is $BUILDDIR/pkgroot
