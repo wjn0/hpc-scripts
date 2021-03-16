@@ -6,6 +6,8 @@ NODELIST=$(sinfo -lN | tail -n +3 | awk '{print $1}')
 
 # Get the packages installed on every node
 
+mkdir -p $OUTDIR
+
 for node in $NODELIST; do
     echo Getting packages for node $node...
 
